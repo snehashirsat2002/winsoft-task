@@ -1,0 +1,29 @@
+/*Replace each array element by its corresponding rank
+  Given an array of distinct integers, replace each array element by its corresponding rank in the array.
+
+The minimum array element has the rank 1; the second minimum element has a rank of 2, and so on… For example,
+
+Input:  { 10, 8, 15, 12, 6, 20, 1 } 
+Output: { 4, 3, 6, 5, 2, 7, 1 } */
+
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int[] inputArray = { 10, 8, 15, 12, 6, 20, 1 };
+        int[] outputArray = ReplaceWithRank(inputArray);
+        
+        Console.WriteLine(string.Join(", ", outputArray));
+    }
+
+    static int[] ReplaceWithRank(int[] arr)
+    {
+        int[] sortedArr = arr.OrderBy(x => x).ToArray();
+        var rankDict = sortedArr.Select((value, index) => new { Value = value, Rank = index + 1 })
+                                 .ToDictionary(pair => pair.Value, pair => pair.Rank);
+        return arr.Select(value => rankDict[value]).ToArray();
+    }
+}

@@ -1,0 +1,48 @@
+/*Q2: Given a string s, find the length of the longest substring without repeating characters.
+Example 1:
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+Example 2:
+
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1*/
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        string s1 = "abcabcbb";
+        string s2 = "bbbbb";
+        string s3 = "pwwkew";
+
+        Console.WriteLine(LengthOfLongestSubstring(s1)); // Output: 3
+        Console.WriteLine(LengthOfLongestSubstring(s2)); // Output: 1
+        Console.WriteLine(LengthOfLongestSubstring(s3)); // Output: 3
+    }
+
+    static int LengthOfLongestSubstring(string s)
+    {
+        int n = s.Length;
+        HashSet<char> set = new HashSet<char>();
+        int maxLength = 0, i = 0, j = 0;
+
+        while (i < n && j < n)
+        {
+            if (!set.Contains(s[j]))
+            {
+                set.Add(s[j++]);
+                maxLength = Math.Max(maxLength, j - i);
+            }
+            else
+            {
+                set.Remove(s[i++]);
+            }
+        }
+        return maxLength;
+    }
+}
